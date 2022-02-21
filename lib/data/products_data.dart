@@ -1,6 +1,6 @@
 import '../models/products.dart';
 
-final productsList = [
+final PRODUCTS_LIST = [
   Products(
     productId: 'p1',
     title: 'Red Shirt',

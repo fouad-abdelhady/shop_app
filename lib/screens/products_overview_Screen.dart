@@ -13,7 +13,7 @@ class ProductsOverviewScreen extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(appBarTitle: 'Products', screenBody: getBody());
+    return AppScaffold(appBarTitle: 'MyShop', screenBody: getBody());
   }
 
   Widget getBody() => GridView.builder(

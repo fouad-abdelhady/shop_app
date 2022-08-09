@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products.dart';
 import 'config/routes.dart';
 
 void main() {
@@ -12,14 +14,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch()
-              .copyWith(primary: Colors.amber, secondary: Colors.grey[600]),
-          fontFamily: "Lato",
-          textTheme:
-              const TextTheme(titleMedium: TextStyle(fontFamily: "Lato"))),
-      onGenerateRoute: (settings) => Routes.ON_GENERATE_ROUTE(settings),
+    return ChangeNotifierProvider(
+      create: (context) => Products(),
+      child: MaterialApp(
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSwatch()
+                .copyWith(primary: Colors.amber, secondary: Colors.grey[600]),
+            fontFamily: "Lato",
+            textTheme:
+                const TextTheme(titleMedium: TextStyle(fontFamily: "Lato"))),
+        onGenerateRoute: (settings) => Routes.ON_GENERATE_ROUTE(settings),
+      ),
     );
   }
 }

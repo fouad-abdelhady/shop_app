@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products.dart';
 import 'package:shop_app/screens/product_details_screen.dart';
 
+import '../providers/cart.dart';
 import '../providers/product.dart';
 
 // ignore: must_be_immutable
 class ProductItem extends StatefulWidget {
   static const ICONS_COLOR = Color.fromARGB(255, 255, 146, 3);
-
+  VoidCallback refreshProductsList;
+  ProductItem({required this.refreshProductsList});
   @override
   State<ProductItem> createState() => _ProductItem();
 }
@@ -16,6 +19,8 @@ class _ProductItem extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     var productObj = Provider.of<Product>(context, listen: false);
+    var productsObj = Provider.of<Products>(context);
+    var cartObj = Provider.of<Cart>(context, listen: false);
     return Container(
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -40,6 +45,9 @@ class _ProductItem extends State<ProductItem> {
                     builder: (ctx, product, child) => IconButton(
                         onPressed: (() {
                           productObj.toggelFavourite();
+                          if (productsObj.isFavourite) {
+                            widget.refreshProductsList();
+                          }
                         }),
                         icon: productObj.isFavourite
                             ? const Icon(
@@ -56,8 +64,14 @@ class _ProductItem extends State<ProductItem> {
                       ?.copyWith(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
-                trailing: const Icon(
-                  Icons.shopping_bag_outlined,
+                trailing: IconButton(
+                  onPressed: () {
+                    cartObj.addCartItem(
+                        productId: productObj.productId,
+                        productTitle: productObj.title,
+                        price: productObj.price);
+                  },
+                  icon: const Icon(Icons.shopping_bag_outlined),
                   color: ProductItem.ICONS_COLOR,
                 )),
           ),

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/data/products_data.dart';
-import 'package:shop_app/widgets/product_item.dart';
 
 class AppScaffold extends StatelessWidget {
-  final String _appBarTitel;
+  final String? _appBarTitel;
   final AppBar? _aplicationAppBar;
   final Widget _screenBody;
   final FloatingActionButton? _screenFloatingActionButton;
 
   AppScaffold(
       {Key? key,
-      required String appBarTitle,
+      String? appBarTitle,
       AppBar? applicationAppBar,
       required Widget screenBody,
       FloatingActionButton? screenFloatingActionButton})
@@ -31,6 +30,6 @@ class AppScaffold extends StatelessWidget {
   }
 
   AppBar _getDefaultAppBar() => AppBar(
-        title: Text(_appBarTitel),
+        title: Text(_appBarTitel ?? ""),
       );
 }
